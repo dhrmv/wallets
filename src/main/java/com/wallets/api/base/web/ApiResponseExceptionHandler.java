@@ -21,18 +21,10 @@ public class ApiResponseExceptionHandler {
     protected ResponseEntity<?> handleApiEx(ApiException ex, WebRequest request) {
         if (ex instanceof BadRequestException) {
             return responseEntity(HttpStatus.BAD_REQUEST, ex);
-        } else if (ex instanceof NotAuthorizedException) {
-            return responseEntity(HttpStatus.UNAUTHORIZED, ex);
         } else if (ex instanceof NotFoundException) {
             return responseEntity(HttpStatus.NOT_FOUND, ex);
-        } else if (ex instanceof AlreadyExistsException) {
-            return responseEntity(HttpStatus.CONFLICT, ex);
-        } else if (ex instanceof NotAcceptableException) {
+        }  else if (ex instanceof NotAcceptableException) {
             return responseEntity(HttpStatus.NOT_ACCEPTABLE, ex);
-        } else if (ex instanceof ForbiddenException) {
-            return responseEntity(HttpStatus.FORBIDDEN, ex);
-        } else if (ex instanceof ServiceUnavailableException) {
-            return responseEntity(HttpStatus.SERVICE_UNAVAILABLE, ex);
         }
         return responseEntity(HttpStatus.BAD_REQUEST, ex);
     }

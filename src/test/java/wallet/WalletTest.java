@@ -1,11 +1,12 @@
 package wallet;
 
 import org.json.JSONException;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.junit.jupiter.api.BeforeEach;
 
 import java.util.LinkedHashMap;
 
@@ -14,10 +15,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class WalletTest {
 
     private static final String BASE_URL = "http://localhost:8080/api/v1";
-    private String walletId;
+    private static String walletId;
 
     @BeforeEach
-    public void setUp() throws JSONException {
+    public void createWallet() throws JSONException {
+
         RestAssured.baseURI = BASE_URL;
 
         Response response = RestAssured.given()
@@ -69,8 +71,8 @@ public class WalletTest {
         String operationWalletJson = """
                 {
                     "walletId": "%s",
-                    "operationType":"WITHDRAW",
-                    "amount": 100
+                    "operationType":"DEPOSIT",
+                    "amount": 1000
                 }
                 """.formatted(walletId);
 
@@ -83,5 +85,23 @@ public class WalletTest {
         LinkedHashMap<String,LinkedHashMap<String,Integer>> res = response.jsonPath().get();
         Integer resWalletBalance = res.get("data").get("balance");
         assertEquals(1000, resWalletBalance, "Updated wallet balance mismatch");
+
+        operationWalletJson = """
+                {
+                    "walletId": "%s",
+                    "operationType":"WITHDRAW",
+                    "amount": 100
+                }
+                """.formatted(walletId);
+
+        response = RestAssured.given()
+                .contentType(ContentType.JSON)
+                .body(operationWalletJson)
+                .post("/wallet");
+
+        assertEquals(200, response.getStatusCode(), "Failed to update wallet");
+        res = response.jsonPath().get();
+        resWalletBalance = res.get("data").get("balance");
+        assertEquals(900, resWalletBalance, "Updated wallet balance mismatch");
     }
 }
