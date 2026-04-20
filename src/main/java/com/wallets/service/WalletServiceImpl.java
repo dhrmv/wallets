@@ -83,7 +83,7 @@ public class WalletServiceImpl implements WalletService {
         }
 
         if (operationType.equals(OperationType.WITHDRAW)) {
-            if (wallet.getBalance() - amount < 0) {
+            if (!wallet.checkBalance(amount)) {
                 throw new NotAcceptableException(ApiExceptionsConsts.INSUFFICIENT_FUNDS);
             }
             wallet.withdraw(amount);

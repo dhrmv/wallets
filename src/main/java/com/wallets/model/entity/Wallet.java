@@ -24,4 +24,8 @@ public class Wallet {
         public void withdraw(long amount) {
                 this.balance = this.balance - amount;
         }
+
+        public boolean checkBalance(long deposit_amount) {
+                return this.balance - deposit_amount >= 0 ? true : false;
+        }
 }
