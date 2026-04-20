@@ -42,13 +42,35 @@ public class WalletTest {
     }
 
     @Test
-    public void testOperationWallet() {
+    public void testDepositWallet() {
 
         String operationWalletJson = """
                 {
                     "walletId": "%s",
                     "operationType":"DEPOSIT",
                     "amount": 1000
+                }
+                """.formatted(walletId);
+
+        Response response = RestAssured.given()
+                .contentType(ContentType.JSON)
+                .body(operationWalletJson)
+                .post("/wallet");
+
+        assertEquals(200, response.getStatusCode(), "Failed to update wallet");
+        LinkedHashMap<String,LinkedHashMap<String,Integer>> res = response.jsonPath().get();
+        Integer resWalletBalance = res.get("data").get("balance");
+        assertEquals(1000, resWalletBalance, "Updated wallet balance mismatch");
+    }
+
+    @Test
+    public void testWithdrawWallet() {
+
+        String operationWalletJson = """
+                {
+                    "walletId": "%s",
+                    "operationType":"WITHDRAW",
+                    "amount": 100
                 }
                 """.formatted(walletId);
 
