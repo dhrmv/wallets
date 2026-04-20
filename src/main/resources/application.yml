@@ -1,0 +1,42 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/wallets_db
+    username: wallets
+    password: wallets
+    hikari:
+      auto-commit: false
+  liquibase:
+    enabled: true
+    drop-first: false
+    change-log: classpath:db/changelog/db.changelog-master.xml
+    default-schema: public
+  jpa:
+    hibernate:
+      ddl-auto: validate
+      jdbc:
+        time_zone: UTC
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
+  jackson:
+    time-zone: UTC
+  codec:
+    max-in-memory-size: 1024MB
+  servlet:
+    multipart:
+      max-file-size: 1024MB
+      max-request-size: 1024MB
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+server:
+#  servlet:
+#    context-path: "/gateway"
+  port: 8080
+
+
+
+

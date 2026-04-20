@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet logicalFilePath="2026-04-20-1-insert-wallets"
+               id="2026-04-20-1-insert-wallets" author="a.d">
+        <insert tableName="wallets">
+            <column  name="id"  value="wallet1"/>
+            <column  name="balance"  value="10000"/>
+        </insert>
+        <insert tableName="wallets">
+            <column  name="id"  value="wallet2"/>
+            <column  name="balance"  value="11435"/>
+        </insert>
+        <insert tableName="wallets">
+            <column  name="id"  value="wallet3"/>
+            <column  name="balance"  value="54660"/>
+        </insert>
+        <insert tableName="wallets">
+            <column  name="id"  value="wallet4"/>
+            <column  name="balance"  value="78000"/>
+        </insert>
+        <insert tableName="wallets">
+            <column  name="id"  value="wallet5"/>
+            <column  name="balance"  value="2"/>
+        </insert>
+        <insert tableName="wallets">
+            <column  name="id"  value="wallet6"/>
+            <column  name="balance"  value="123"/>
+        </insert>
+        <insert tableName="wallets">
+            <column  name="id"  value="wallet7"/>
+            <column  name="balance"  value="3298"/>
+        </insert>
+        <insert tableName="wallets">
+            <column  name="id"  value="wallet8"/>
+            <column  name="balance"  value="1450"/>
+        </insert>
+        <insert tableName="wallets">
+            <column  name="id"  value="wallet9"/>
+            <column  name="balance"  value="90000"/>
+        </insert>
+        <insert tableName="wallets">
+            <column  name="id"  value="wallet10"/>
+            <column  name="balance"  value="1000"/>
+        </insert>
+
+
+
+    </changeSet>
+
+</databaseChangeLog>
