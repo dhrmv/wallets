@@ -27,12 +27,9 @@ public class WalletServiceImpl implements WalletService {
     @Override
     public Wallet createWallet() {
 
-        Wallet newWallet = new Wallet();
-
         String walletId = UUID.randomUUID().toString();
 
-        newWallet.setId(walletId);
-        newWallet.setBalance(0l);
+        Wallet newWallet = new Wallet(walletId,0L);
 
         return walletRepository.save(newWallet);
     }
@@ -82,14 +79,14 @@ public class WalletServiceImpl implements WalletService {
         Long balance = wallet.getBalance();
 
         if (operationType.equals(OperationType.DEPOSIT)) {
-            wallet.setBalance(balance + amount);
+            wallet.deposit(amount);
         }
 
         if (operationType.equals(OperationType.WITHDRAW)) {
             if (wallet.getBalance() - amount < 0) {
                 throw new NotAcceptableException(ApiExceptionsConsts.INSUFFICIENT_FUNDS);
             }
-            wallet.setBalance(balance - amount);
+            wallet.withdraw(amount);
         }
 
         return walletRepository.save(wallet);
