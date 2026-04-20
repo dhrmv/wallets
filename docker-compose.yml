@@ -1,16 +1,6 @@
 version: '3.8'
 services:
-  client-frontend:
-    image: frontend:0.0.1
-    build: ./frontend
-    restart: always
-    ports:
-      - '3000:3000'
-    volumes:
-      - /app/node_modules
-      - ./frontend:/app
-
-  client-backend:
+  backend:
     image: client:0.0.1
     build:
       context: .
@@ -26,12 +16,12 @@ services:
   service-db:
     image: postgres:14.7-alpine
     environment:
-      POSTGRES_USER: username
-      POSTGRES_PASSWORD: password
+      POSTGRES_USER: wallets
+      POSTGRES_PASSWORD: wallets
     ports:
       - "5432:5432"
     volumes:
-      - ./infrastructure/db/create_db.sql:/docker-entrypoint-initdb.d/create_db.sql
+      - ./deploy/db/create_db.sql:/docker-entrypoint-initdb.d/create_db.sql
       - db-data:/var/lib/postgresql/data
     restart: unless-stopped
 
