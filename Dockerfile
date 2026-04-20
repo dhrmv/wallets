@@ -3,7 +3,7 @@ WORKDIR /app
 COPY . /app/.
 RUN mvn -f /app/pom.xml clean package -Dmaven.test.skip=true
 
-FROM eclipse-temurin:17-jre-alpine
+FROM --platform=linux/amd64 eclipse-temurin:17-jre-alpine
 WORKDIR /app
 COPY --from=builder /app/target/*.jar /app/*.jar
 EXPOSE 8080
