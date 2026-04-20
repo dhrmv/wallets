@@ -16,7 +16,7 @@ public class WalletController {
 
     private final WalletService walletService;
 
-    @PostMapping("/wallet/create")
+    @PostMapping("/create")
     public ApiResponse<Wallet> createWallet() {
 
         Wallet wallet = walletService.createWallet();
